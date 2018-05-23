@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 
@@ -20,6 +21,7 @@ from rest_framework_swagger.views import get_swagger_view
 from rest_framework import documentation
 
 from . import views
+from dataset.views import DataSetList
 
 schema_view = get_swagger_view(title='psngr project API configuration')
 
@@ -46,6 +48,18 @@ urlpatterns = [
         description=REST_SWAGGER_SETTINGS['description'],
         public=REST_SWAGGER_SETTINGS['public'])
     ),
-    path('data-list', views.DataList.as_view(), name="data-list")
+    path('data-list', views.DataList.as_view(), name="data-list"),
+    path('dynamic-data-list', views.DynamicDataList.as_view(),
+         name="dynamic-data-list"),
+    path('store-data-list', DataSetList.as_view(), name="store-data-list"),
 
 ]
+
+
+if settings.STORE_DATA_IN_DB:
+    from dataset.helpers import load_data_in_db
+    from .helpers import cache_csv_data
+    load_data_in_db(cache_csv_data(
+        settings.DB_URL,
+        settings.URL_OUTPUT_TYPE)
+    )

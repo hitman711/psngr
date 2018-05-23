@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'pygments',
     'markdown',
+    'dataset'
 ]
 
 MIDDLEWARE = [
@@ -156,8 +157,9 @@ DB_URL = "https://docs.google.com/spreadsheets/d/1SYNFV6IGYOme9smQKVBFBPnOQvJa3M
 
 URL_OUTPUT_TYPE = "csv"
 
-STORE_IN_CACHE = True
+STORE_IN_CACHE = False
 
+STORE_DATA_IN_DB = True
 DATA = None
 
 from . import helpers
@@ -170,3 +172,9 @@ if STORE_IN_CACHE:
 else:
     def GET_DATA():
         return helpers.cache_csv_data(DB_URL, URL_OUTPUT_TYPE)
+
+# Filter types
+CHAR_LOOKUP = ['exact', 'contains', 'in', 'startswith',
+               'endswith', 'icontains', 'istartswith', 'iendswith', ]
+NUMBER_LOOKUP = ['exact', 'in', 'gte', 'lte', 'gt', 'lt']
+BOOLEAN_LOOKUP = ['exact']

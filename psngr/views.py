@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 
-from . import serializers
+from . import serializers, helpers
 
 logs = logging.getLogger(__name__)
 
@@ -71,6 +71,61 @@ class DataList(APIView):
 
         """
         csv_file = settings.GET_DATA()
+        if csv_file.empty:
+            response = {
+                'non_field_errors': 'Detail not available'
+            }
+            return Response(response, status=status.HTTP_404_NOT_FOUND)
+
+        csv_file = csv_file[
+            csv_file[
+                'title'
+            ].apply(
+                lambda x: request.GET.get('title', '') in x
+            ) &
+            csv_file[
+                'description'
+            ].apply(
+                lambda x: request.GET.get('description', '') in x
+            )
+        ]
+        response = csv_file.to_json(
+            orient="records",
+            date_format="epoch",
+            double_precision=10,
+            force_ascii=True,
+            date_unit="ms", default_handler=None)
+        response = json.loads(response)
+        return Response(response, status=status.HTTP_200_OK)
+
+
+class DynamicDataList(APIView):
+    """API enpoint to get list of all CSV datasheet details"""
+
+    def get(self, request, *args, **kwargs):
+        """
+        API endpoint to get list on all CSV details
+
+        Following filters implement in this API
+
+        1. title
+
+        2. description
+
+        """
+        try:
+            limit = int(request.GET.get('limit', 20))
+            offset = int(request.GET.get('offset', 20))
+        except Exception as e:
+            response = {
+                'non_field_errors': 'Bad value set for filter field'
+            }
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
+
+        csv_file = helpers.cache_csv_data(
+            settings.DB_URL, settings.URL_OUTPUT_TYPE,
+            skiprows=[1, offset], nrows=limit
+        )
         if csv_file.empty:
             response = {
                 'non_field_errors': 'Detail not available'
