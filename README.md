@@ -18,7 +18,7 @@ password : sidh@123
 
 username : rotem
 
-password : tote@123
+password : rote@123
 
 
 Features
