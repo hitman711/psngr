@@ -37,6 +37,9 @@ urlpatterns = [
     path('back/doc/', include('django.contrib.admindocs.urls')),
     # API Swagger documentation
     path('swagger/doc/', schema_view),
+    # Auth User API
+    path('sign-in/', views.signIn.as_view(), name='sign_in'),
+    path('sign-out/', views.signOut.as_view(), name='sign_out'),
     # API rest swagger documentation
     path('rest/swagger/doc/', documentation.include_docs_urls(
         title=REST_SWAGGER_SETTINGS['title'],

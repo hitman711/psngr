@@ -25,8 +25,10 @@ class signIn(APIView):
         Authenticate user details
 
         To pass authentication process user should verify following details
-        1. username
-        2. password
+
+            1. username
+
+            2. password
         """
         response = {
             "token": "",
@@ -62,8 +64,10 @@ class DataList(APIView):
         API endpoint to get list on all CSV details
 
         Following filters implement in this API
-        title=
-        description=
+
+        1. title
+
+        2. description
 
         """
         csv_file = settings.GET_DATA()
