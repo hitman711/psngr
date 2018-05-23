@@ -120,9 +120,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication'
     ),
-    # 'DEFAULT_PERMISSION_CLASSES': (
-    #     'rest_framework.permissions.IsAuthenticated'
-    # ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated'
+    ),
     'DEFAULT_FILTER_BACKENDS': (
         'rest_framework_filters.backends.DjangoFilterBackend',
         'rest_framework.filters.OrderingFilter',
@@ -161,6 +161,7 @@ STORE_IN_CACHE = True
 DATA = None
 
 from . import helpers
+
 if STORE_IN_CACHE:
     DATA = helpers.cache_csv_data(DB_URL, URL_OUTPUT_TYPE)
 
