@@ -2,6 +2,15 @@
 
 Project to serve CSV data over DJANGO REST API.
 
+Installation
+
+1. Create virtual environment with python3.6
+
+2. Install project package from project folder `pip install -r requirements.txt`
+
+3. Load fixtures for default details  `python manage.py loaddata fixtures/*`
+
+
 Features
 
 1. Secure API with token autentication system.
