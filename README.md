@@ -10,6 +10,16 @@ Installation
 
 3. Load fixtures for default details  `python manage.py loaddata fixtures/*`
 
+NOTE: 2 Default superuser created
+	
+username : siddhesh
+
+password : sidh@123
+
+username : rotem
+
+password : tote@123
+
 
 Features
 
