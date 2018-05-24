@@ -3,11 +3,14 @@ import logging
 import json
 
 from django.conf import settings
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+
 
 from . import serializers, helpers
 
@@ -105,6 +108,7 @@ class DataList(APIView):
 class DynamicDataList(APIView):
     """API enpoint to get list of all CSV datasheet details"""
 
+    @method_decorator(cache_page(60))
     def get(self, request, *args, **kwargs):
         """
         API endpoint to get list on all CSV details
