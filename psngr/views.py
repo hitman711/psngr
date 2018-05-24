@@ -96,6 +96,9 @@ class DataList(APIView):
             force_ascii=True,
             date_unit="ms", default_handler=None)
         response = json.loads(response)
+        if settings.SOFT_IMAGE_VALIDATION:
+            for x in response:
+                x['image'] = helpers.validate_image(x['image'])
         return Response(response, status=status.HTTP_200_OK)
 
 
@@ -151,4 +154,7 @@ class DynamicDataList(APIView):
             force_ascii=True,
             date_unit="ms", default_handler=None)
         response = json.loads(response)
+        if settings.SOFT_IMAGE_VALIDATION:
+            for x in response:
+                x['image'] = helpers.validate_image(x['image'])
         return Response(response, status=status.HTTP_200_OK)

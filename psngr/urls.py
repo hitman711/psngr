@@ -52,7 +52,6 @@ urlpatterns = [
     path('dynamic-data-list', views.DynamicDataList.as_view(),
          name="dynamic-data-list"),
     path('store-data-list', DataSetList.as_view(), name="store-data-list"),
-
 ]
 
 

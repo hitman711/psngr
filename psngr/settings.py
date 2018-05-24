@@ -160,6 +160,11 @@ URL_OUTPUT_TYPE = "csv"
 STORE_IN_CACHE = False
 
 STORE_DATA_IN_DB = True
+
+SOFT_IMAGE_VALIDATION = True
+
+DEFAULT_IMAGE_URL = "http://www.pinnacleeducations.in/wp-content/uploads/2017/05/no-image.jpg"
+
 DATA = None
 
 from . import helpers

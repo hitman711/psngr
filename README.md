@@ -25,6 +25,21 @@ username : rotem
 password : rote@123
 
 
+DOCKER RUN
+
+1. First install docker and docker-compose in your system (Docker dependancies)
+	
+	`sudo apt-get install docker`
+
+	`sudo apt-get install docker-compose`
+
+2. Perform `docker-compose build` command to install project dependancies inside project path
+
+3. Run `docker-compose up` command to run project on localhost:8000
+
+4. To close docker run `docker-compose down`
+
+
 Features
 
 1. Secure API with token autentication system.
@@ -37,42 +52,53 @@ Features
 
 4. Read data from database `store-data-list`
 
-4. Query parameter :-  `title` and `description` also implemented in all three API.
+5. Query parameter :- `title` and `description` also implemented in all three API.
+
+6. `SOFT_IMAGE_VALIDATION` to check image url contains image types name. If not replace with `DEFAULT_IMAGE_URL`.
 
 
-PROS and CONS of above three API implementation
+Assumptions,Pros and Cons of above three API implementation
 
 1. `/data-list`
 	
+	Assumption
+		1. CSV file data is static.
+		2. To increase API performance, data store in memory
+
 	PROS:
 
-		1. Data store in memory. Hence performance is very fast.
+		1. API performance is very fast.
 
 	CONS:
-		1. Memory filled with CSV file data.
+		1. Memory filled with CSV file data(size of csv file data == size of memory used).
 		2. New CSV file data not store in memory.
 
 
 2. `dynamic-data-list`
+	
+	Assumption
+		1. CSV file data is dynamic.
+		2. Read specific line of data from CSV file.
 
 	PROS:
-		1. Only required data read from CSV file. Less data access from file.
+		1. Specific line of rows read from CSV file. Hence less memory use.
 		2. Updated CSV file data get in list
 
 	CONS:
-		1. Each time data read from csv file
-		2. Performance issue
+		1. Each time data read from csv file.
+		2. Slow performance compare to above API.
+		3. API response time increase.
 
 3. `store-data-list`
 	
+	Assumption
+		1. CSV file data is static.
+		2. To increase API performance, data store in database
+
 	PROS:
-		1. Data store in database. Less memory used
-		2. Fast data access also based on requirement data fetch from database.
+		1. Data store in database. Less memory used.
+		2. Moderate API performance compare to `data-list`.
 
 	CONS:
-		1. New CSV file data not store in memory.
+		1. New CSV file data not store in memory. (This can be removed by using celery delay function which fetch and load new data in database after specific interval)
 
-
-Assumptions
-
-1. No. of records in CSV are considered to be very small (25 in this case). Hence pagination is not implemented.

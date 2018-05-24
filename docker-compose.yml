@@ -1,0 +1,12 @@
+version: '2'
+services:
+  django:
+    build: .
+    ports:
+      - '8000:8000'
+    container_name: psngr_env
+    volumes:
+      - './:/home/siddhesh/psngr'
+    command: >-
+      bash -c  'source /home/siddhesh/psngr_env/bin/activate &&
+      python manage.py runserver 0.0.0.0:8000'
