@@ -6,7 +6,7 @@ from . import serializers, filters
 
 
 class DataSetList(generics.ListAPIView):
-    """docstring for DataSetList"""
+    """API endpoint to List data from dataset model"""
     serializer_class = serializers.DataSetSerializer
     model_class = serializer_class.Meta.model
     queryset = model_class.objects.all()

@@ -7,7 +7,7 @@ from . import models
 
 
 class DataSetFilter(filters.FilterSet):
-    """docstring for VenueServiceFilter"""
+    """Filter dataset models details based on following fields"""
     class Meta:
         model = models.DataSet
         fields = {

@@ -9,7 +9,7 @@ logs = logging.getLogger(__name__)
 
 
 class DataSetSerializer(serializers.ModelSerializer):
-    """docstring for DataSetSerializer"""
+    """Perform CRUD operation on DataSet model"""
     class Meta:
         model = models.DataSet
         fields = '__all__'

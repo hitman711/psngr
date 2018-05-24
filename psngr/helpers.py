@@ -30,7 +30,7 @@ def cache_csv_data(DB_URL, URL_OUTPUT_TYPE, skiprows=[], nrows=None):
 
 
 def validate_image(url):
-    """ """
+    """Validate url type is image url"""
     url_parse = urlparse(url)
     path = url_parse.path
     if not path:
