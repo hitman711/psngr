@@ -14,6 +14,7 @@ Installation & Run
 	
 	`python manage.py runserver`
 
+
 NOTE: 2 Default superuser created
 	
 username : siddhesh
